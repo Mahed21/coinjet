@@ -789,7 +789,7 @@ ul.box-account li.sign-in:before {
 ---------------------------------------------------------------*/
 .header-wrap {
   width: 100%;
-  padding: 0 15px;
+  padding: 0 5px;
 }
 
 .nav-wrap {
@@ -2342,11 +2342,21 @@ article.main-single .direction .widget_tag_cloud {
 .register {
   margin-top: 0px;
   margin-bottom: 0px;
-  height: 100vh;
+  height: 80vh;
 
   background-color: #f8fafc;
 }
 .login-card {
   background-color: white;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+.warning-text {
+  color: red;
+}
+#sendEmail {
+  color: rgb(8, 239, 8);
+}
+
+.hello {
+  background-color: red !important;
 }

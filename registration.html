@@ -14,6 +14,7 @@
     <title>Document</title>
   </head>
   <body>
+    <script id="replace_with_navbar" src="navbar/nav.js"></script>
     <div class="register d-flex justify-content-center align-items-center">
       <div class="login-card p-5">
         <input
@@ -21,10 +22,17 @@
           type="text"
           name="fullName"
           placeholder="Enter Full Names"
+          class="rounded"
         />
         <br />
 
-        <input id="email" type="email" placeholder="Email" name="email" />
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          name="email"
+          class="rounded"
+        />
         <br />
 
         <input
@@ -32,6 +40,7 @@
           type="password"
           placeholder="Password"
           name="password"
+          class="rounded"
         />
         <br />
         <input
@@ -39,6 +48,7 @@
           type="password"
           placeholder="Confirm Password"
           name="password"
+          class="rounded"
         />
         <br />
 
@@ -47,64 +57,65 @@
         <a href="login.html" title="" class="ms-2">Already Registerd?</a>
 
         <br />
-
-        <!-- firebase for signup -->
-        <script type="module">
-          // Import the functions you need from the SDKs you need
-          import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
-          import { getDatabase } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
-          import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            sendEmailVerification,
-          } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
-          // TODO: Add SDKs for Firebase products that you want to use
-          // https://firebase.google.com/docs/web/setup#available-libraries
-
-          // Your web app's Firebase configuration
-
-          const firebaseConfig = {
-            apiKey: "AIzaSyCO7W8X-sHYXgUD8pJDq944r-GTVK0Hm64",
-            authDomain: "medicare-21a29.firebaseapp.com",
-            projectId: "medicare-21a29",
-            storageBucket: "medicare-21a29.appspot.com",
-            messagingSenderId: "777739868936",
-            appId: "1:777739868936:web:792cd498a1878558adeabd",
-          };
-
-          // Initialize Firebase
-          const app = initializeApp(firebaseConfig);
-          const database = getDatabase(app);
-          const auth = getAuth();
-          document
-            .getElementById("signup")
-            .addEventListener("click", displayDate);
-          function displayDate() {
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("pass").value;
-            const name = document.getElementById("name").value;
-            const cpass = document.getElementById("cpass").value;
-            console.log("hii");
-            if (password === cpass) {
-              createUserWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                  // Signed in
-                  const user = userCredential.user;
-
-                  console.log("successfull");
-
-                  localStorage.setItem("userInfo", JSON.stringify(user));
-                  window.location.href = "index.html";
-                })
-                .catch((error) => {
-                  alert(error.message);
-                });
-            } else {
-              alert("confirm password and password doesnt match");
-            }
-          }
-        </script>
+        <p id="warning" class="warning-text mt-2"></p>
       </div>
     </div>
+
+    <!-- firebase for signup -->
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+      import { getDatabase } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        sendEmailVerification,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCO7W8X-sHYXgUD8pJDq944r-GTVK0Hm64",
+        authDomain: "medicare-21a29.firebaseapp.com",
+        projectId: "medicare-21a29",
+        storageBucket: "medicare-21a29.appspot.com",
+        messagingSenderId: "777739868936",
+        appId: "1:777739868936:web:792cd498a1878558adeabd",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+      const auth = getAuth();
+      document.getElementById("signup").addEventListener("click", displayDate);
+      function displayDate() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("pass").value;
+        const name = document.getElementById("name").value;
+        const cpass = document.getElementById("cpass").value;
+
+        if (password === cpass) {
+          createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+              // Signed in
+              const user = userCredential.user;
+
+              console.log("successfull");
+
+              localStorage.setItem("userInfo", JSON.stringify(user));
+              window.location.href = "index.html";
+            })
+            .catch((error) => {
+              document.getElementById("warning").innerHTML = error.message;
+            });
+        } else {
+          console.log(pass, cpass);
+          document.getElementById("warning").innerHTML =
+            "password and confirm password doesn't match";
+        }
+      }
+    </script>
   </body>
 </html>

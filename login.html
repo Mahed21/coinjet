@@ -14,9 +14,16 @@
     <title>Document</title>
   </head>
   <body>
+    <script id="replace_with_navbar" src="navbar/nav.js"></script>
     <div class="register d-flex justify-content-center align-items-center">
       <div class="login-card p-5">
-        <input id="email" type="email" placeholder="Email" name="email" />
+        <input
+          id="email"
+          type="email"
+          placeholder="Email"
+          name="email"
+          class="rounded"
+        />
         <br />
 
         <input
@@ -24,6 +31,7 @@
           type="password"
           placeholder="Password"
           name="password"
+          class="rounded w-100"
         />
         <br />
 
@@ -36,6 +44,7 @@
         <a href="registration.html" title="" class="ms-2">Yet not registerd?</a>
 
         <br />
+        <p id="warning" class="warning-text mt-2"></p>
       </div>
     </div>
 
@@ -77,7 +86,7 @@
         .addEventListener("click", googleLogiIn);
 
       function googleLogiIn() {
-        console.log("hi");
+        // console.log("hi");
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
           .then((result) => {
@@ -91,7 +100,7 @@
           .catch((error) => {
             const errorMessage = error.message;
 
-            console.log(error);
+            document.getElementById("warning").innerHTML = error.message;
           });
       }
 
@@ -109,7 +118,7 @@
             window.location.href = "index.html";
           })
           .catch((error) => {
-            alert(error.message);
+            document.getElementById("warning").innerHTML = error.message;
           });
       }
     </script>

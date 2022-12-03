@@ -110,8 +110,15 @@
                                     <li>
                                         <a href="#contact" title="">CONTACT US</a>
                                     </li>
+								
 									<li>
                                         <a href="login.html" title=""   id="login">LOGIN</a>
+                                    </li>
+									<li>
+                                        <a href="" title="" id="goto"></a>
+                                    </li>
+									<li>
+                                        <a href="" title="" id="dashboard"></a>
                                     </li>
 								</ul><!-- /.menu -->
 							</nav><!-- /#mainnav -->
@@ -799,11 +806,30 @@
 <!-- logout functionality  -->
 <script type="module">
 	const a = JSON.parse(localStorage.getItem("userInfo"));
-	console.log(a);
+	//console.log(a);
 	if (a.email) {
 	  document.getElementById("login").innerHTML = "LOGOUT";
 	  document.getElementById("login").href = "";
 	  document.getElementById("login").id = "logout";
+	  document.getElementById("goto").innerHTML = "GET STARTED";
+	  document.getElementById("goto").href = "goto.html";
+	  fetch("https://conjent.onrender.com/admin")
+	  .then(res=>res.json())
+	  .then(data=>{
+		const fecthData = data.data.filter((datas)=>datas.email===a.email)
+		//console.log(fecthData)
+		if(fecthData.length>0){
+			document.getElementById("dashboard").innerHTML = "Admin";
+			document.getElementById("dashboard").href = "admindasboard.html";
+		
+
+		}
+		else{
+			document.getElementById("dashboard").innerHTML = "Dashboard";
+			document.getElementById("dashboard").href = "userDashboard.html";
+		}
+
+	  })
 	}
 	import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
 	import { getDatabase } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
@@ -837,6 +863,10 @@
 		  document.getElementById("logout").innerHTML = "Login";
 		  document.getElementById("logout").id = "login";
 		  document.getElementById("login").href = "login.html";
+		  document.getElementById("goto").innerHTML = "";
+		  document.getElementById("dashboard").innerHTML = "";
+	  document.getElementById("goto").href = "";
+	  document.getElementById("dashboard").href = "";
 		})
 		.catch((error) => {
 		  // An error happened.
